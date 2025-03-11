@@ -1,7 +1,6 @@
 <?php
 session_start();
 include('./includes/db.php');
-include ('./includes/sidebar.php');
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: index.php');

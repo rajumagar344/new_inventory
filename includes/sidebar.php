@@ -1,8 +1,23 @@
 <?php
-include ('db.php');
+session_start();
+include ('./includes/db.php');
+
+if (!isset($_SESSION['user_id'])) { 
+    header('Location: index.php'); 
+    exit();
+}
+
+// ✅ SESSION बाट user_id लिनुहोस्
+$user_id = $_SESSION['user_id'];
+
+// ✅ Database बाट username fetch गर्नुहोस्
+$stmt = $pdo->prepare("SELECT username FROM users WHERE id = ?");
+$stmt->execute([$user_id]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// ✅ यदि username पाइएन भने 'Guest' देखाउनुहोस्
+$username = $user ? $user['username'] : 'Guest';
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,11 +27,9 @@ include ('db.php');
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./assets/js/jquery-3.7.1.js"></script>
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-
     <style>
         body {
             background-color: #f8f9fa;
@@ -48,36 +61,24 @@ include ('db.php');
 </head>
 <body>
     
-<div class="sidebar">
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link" href="dashboard.php">Dashboard</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" id="products-link">Products</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="categories.php">Categories</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="orders.php">Orders</a>
-        </li>
-        <!-- Add more links as needed -->
-    </ul>
+<!-- Sidebar -->
+<div class="d-flex flex-column flex-md-row">
+    <div class="sidebar flex-shrink-0 p-3 bg-dark text-white">
+        <h4>INVENTORY SYSTEM</h4>
+
+         <p>Welcome, <strong><?= htmlspecialchars($username); ?></strong>!</p>
+
+        <a href="dashboard_overview.php" class="nav-link text-white"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="users.php" class="nav-link text-white"><i class="fas fa-users"></i> User Management</a>
+        <a href="categories.php" class="nav-link text-white"><i class="fas fa-th-list"></i> Categories</a>
+        <a href="products.php" class="nav-link text-white"><i class="fas fa-boxes"></i> Products</a>
+        <a href="sales.php" class="nav-link text-white"><i class="fas fa-shopping-cart"></i> Sales</a>
+        <a href="reports.php" class="nav-link text-white"><i class="fas fa-chart-line"></i> Reports</a>
+        <a href="logout.php" class="nav-link text-white"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
 </div>
+
+<script src="./assets/js/script.js"></script>
+
 </body>
-<script>
-    $(document).ready(function() {
-        $('#products-link').click(function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: 'products.php?ajax=1',
-                method: 'GET',
-                success: function(data) {
-                    $('#main-content').html(data);
-                }
-            });
-        });
-    });
-</script>
 </html>

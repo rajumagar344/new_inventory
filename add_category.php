@@ -1,7 +1,8 @@
 <?php
-session_start();
 include('./includes/db.php');
+include('./includes/sidebar.php');
 
+echo "Current Page: " . $_SERVER['PHP_SELF'];
 if (!isset($_SESSION['user_id'])) {
     header('Location: index.php');
     exit();
@@ -43,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <button type="submit" class="btn btn-primary">Add Category</button>
     </form>
 </div>
+<script src="./assets/js/script.js"></script>
 
 </body>
 </html>

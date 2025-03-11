@@ -56,8 +56,8 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == 1) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js">
-    </script>    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
 
     <script>
         $(document).ready(function() {

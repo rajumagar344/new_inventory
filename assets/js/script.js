@@ -102,11 +102,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const signUpBtn = document.querySelector("#signup-btn");
     const container = document.querySelector(".container");
 
-    signUpBtn.addEventListener("click", () => {
+    login.addEventListener("click", () => {
         container.classList.add("sign-up-mode");
     });
 
-    signInBtn.addEventListener("click", () => {
+    register.addEventListener("click", () => {
         container.classList.remove("sign-up-mode");
     });
 
@@ -121,27 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Function to update dashboard stats
-    // function updateDashboard() {
-    //     $.ajax({
-    //         url: 'fetch_dashboard.php',
-    //         method: 'GET',
-    //         dataType: 'json',
-    //         success: function(data) {
-    //             $('#total_users').text(data.total_users);
-    //             $('#total_categories').text(data.total_categories);
-    //             $('#total_products').text(data.total_products);
-    //             $('#total_sales').text('$' + data.total_sales);
-
-    //             updateChart(data.sales_data);
-    //         },
-    //         error: function(xhr, status, error) {
-    //             console.log('Error fetching dashboard data: ' + error);
-    //         }
-    //     });
-    // }
-
-    // Function to update sales chart
+    
     let chartInstance;
 
     function updateChart(salesData) {
