@@ -7,15 +7,15 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// ✅ SESSION बाट user_id लिनुहोस्
+
 $user_id = $_SESSION['user_id'];
 
-// ✅ Database बाट username fetch गर्नुहोस्
+
 $stmt = $pdo->prepare("SELECT username FROM users WHERE id = ?");
 $stmt->execute([$user_id]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// ✅ यदि username पाइएन भने 'Guest' देखाउनुहोस्
+
 $username = $user ? $user['username'] : 'Guest';
 ?>
 
